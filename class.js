@@ -1,12 +1,30 @@
-class BinarySearchTrees {
-  constructor() {
+class BinarySearchTree {
+  constructor(key = null, value = null, parent = null) {
     this.key = key;
     this.value = value;
     this.parent = parent;
     this.left = null;
     this.right = null;
   }
-  insert(key) {}
+  insert(key, value) {
+    // If the tree is empty then this key being inserted is the root node of the tree
+    if (this.key == null) {
+      this.key = key;
+      this.value = value;
+    } else if (key < this.key) {
+      if (this.left == null) {
+        this.left = new BinarySearchTree(key, value, this);
+      } else {
+        this.left.insert(key, value);
+      }
+    } else {
+      if (this.right == null) {
+        this.right = new BinarySearchTree(key, value, this);
+      } else {
+        this.right.insert(key, value);
+      }
+    }
+  }
   remove(key) {
     if (this.key == key) {
       if (this.left && this.right) {
@@ -79,4 +97,43 @@ class BinarySearchTrees {
     }
     return this.left._findMin();
   }
+}
+
+// Ex 3
+
+const exampleTree = new BinarySearchTree();
+const array = [3, 1, 4, 6, 9, 2, 5, 7];
+array.forEach((number) => exampleTree.insert(number));
+
+const exampleTreeLetters = new BinarySearchTree();
+const letters = ["E", "A", "S", "Y", "Q", "U", "E", "S", "T", "I", "O", "N"];
+letters.forEach((letter) => exampleTree.insert(letter));
+// console.log(exampleTreeLetters);
+
+function tree(t) {
+  if (!t) {
+    return 0;
+  }
+  return tree(t.left) + t.value + tree(t.right);
+}
+
+// sums the value of each node in a tree
+
+// Write an algorithm to find the height of a binary search tree.
+// What is the time complexity of your algorithm?
+//EX 5
+let counterLeft = 0;
+let counterRight = 0;
+function heightCalcualtor(values = []) {
+  if (this.left) {
+    values = this.left.heightCalcualtor(values);
+    counterLeft++;
+  }
+  values.push(this.value);
+
+  if (this.right) {
+    values = this.right.dfs(valuesRight);
+    counterRight++;
+  }
+  return Math.max(counterLeft, counterRight);
 }
